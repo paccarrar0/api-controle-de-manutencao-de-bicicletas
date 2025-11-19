@@ -4,7 +4,7 @@ import { Repository, getRepository, DeleteResult } from 'typeorm';
 import { UserEntity } from './user.entity';
 import {CreateUserDto, LoginUserDto, UpdateUserDto} from './dto';
 const jwt = require('jsonwebtoken');
-import { SECRET } from '../config';
+import { ConfigService } from '@nestjs/config';
 import { UserRO } from './user.interface';
 import { validate } from 'class-validator';
 import { HttpException } from '@nestjs/common/exceptions/http.exception';
@@ -15,7 +15,8 @@ import * as argon2 from 'argon2';
 export class UserService {
   constructor(
     @InjectRepository(UserEntity)
-    private readonly userRepository: Repository<UserEntity>
+    private readonly userRepository: Repository<UserEntity>,
+    private readonly configService: ConfigService
   ) {}
 
   async findAll(): Promise<UserEntity[]> {
@@ -52,12 +53,11 @@ export class UserService {
 
     }
 
-    // create new user
     let newUser = new UserEntity();
     newUser.username = username;
     newUser.email = email;
     newUser.password = password;
-    newUser.articles = [];
+    newUser.bicicletas = [];
 
     const errors = await validate(newUser);
     if (errors.length > 0) {
@@ -105,12 +105,14 @@ export class UserService {
     let exp = new Date(today);
     exp.setDate(today.getDate() + 60);
 
+    const secret = this.configService.get<string>('SECRET'); 
+
     return jwt.sign({
       id: user.id,
       username: user.username,
       email: user.email,
       exp: exp.getTime() / 1000,
-    }, SECRET);
+    }, secret);
   };
 
   private buildUserRO(user: UserEntity) {

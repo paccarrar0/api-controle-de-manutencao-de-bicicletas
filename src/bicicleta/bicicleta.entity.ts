@@ -20,6 +20,9 @@ export class BicicletaEntity {
   @Column()
   cor: string;
 
+  @Column()
+  aro: number;
+
   @Column({default: 'nova'})
   status: string;
 

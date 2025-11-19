@@ -24,7 +24,7 @@
   "homepage": "https://github.com/lujakob/nestjs-realworld-example-app#readme",
   "dependencies": {
     "@nestjs/common": "^7.0.5",
-    "@nestjs/config": "^4.0.2",
+    "@nestjs/config": "^0.6.3",
     "@nestjs/core": "^7.0.5",
     "@nestjs/microservices": "^7.0.5",
     "@nestjs/platform-express": "^7.0.5",
@@ -43,7 +43,7 @@
     "reflect-metadata": "^0.1.13",
     "rxjs": "^6.5.5",
     "slug": "^1.1.0",
-    "swagger-ui-express": "^4.1.4",
+    "swagger-ui-express": "^4.1.6",
     "typeorm": "^0.2.45",
     "typescript": "^3.8.3"
   },

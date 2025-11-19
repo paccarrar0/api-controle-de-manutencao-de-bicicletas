@@ -14,7 +14,7 @@ async function bootstrap() {
     .setTitle('API Controle de Bicicletas')
     .setDescription('API para gerenciamento de manutenção de bicicletas')
     .setVersion('1.0')
-    .setBasePath('v1/api')
+    //.setBasePath('v1/api')
     .addBearerAuth()
     .build();
   const document = SwaggerModule.createDocument(app, options);

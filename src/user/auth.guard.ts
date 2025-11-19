@@ -13,7 +13,7 @@ export class AuthGuard implements CanActivate {
 
     if (authHeaders && (authHeaders as string).split(' ')[1]) {
       const token = (authHeaders as string).split(' ')[1];
-      
+
       const secret = this.configService.get<string>('SECRET');
 
       try {

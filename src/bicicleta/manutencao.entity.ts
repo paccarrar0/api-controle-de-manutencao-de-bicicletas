@@ -10,6 +10,9 @@ export class Manutencao {
   @Column()
   body: string;
 
+  @Column()
+  custo: number;
+
   @ManyToOne(type => BicicletaEntity, bicicleta => bicicleta.manutencoes)
   bicicleta: BicicletaEntity;
 }
