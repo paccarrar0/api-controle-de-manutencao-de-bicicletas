@@ -26,16 +26,6 @@ export class BicicletaController {
     return await this.bicicletaService.findAll(query);
   }
 
-
-  @ApiOperation({ summary: 'Get bicicleta feed' })
-  @ApiResponse({ status: 200, description: 'Return bicicleta feed.'})
-  @ApiResponse({ status: 403, description: 'Forbidden.' })
-  @Get('feed')
-  /*
-  async getFeed(@User('id') userId: number, @Query() query): Promise<BicicletasRO> {
-    return await this.bicicletaService.findFeed(userId, query);
-  }
-  */
   @Get(':slug')
   async findOne(@Param('slug') slug): Promise<BicicletaRO> {
     return await this.bicicletaService.findOne({slug});
@@ -47,6 +37,7 @@ export class BicicletaController {
   }
 
   @ApiOperation({ summary: 'Create bicicleta' })
+  @ApiBearerAuth()
   @ApiResponse({ status: 201, description: 'The bicicleta has been successfully created.'})
   @ApiResponse({ status: 403, description: 'Forbidden.' })
   @Post()
