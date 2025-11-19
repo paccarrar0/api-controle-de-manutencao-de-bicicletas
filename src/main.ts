@@ -1,22 +1,26 @@
 import { NestFactory } from '@nestjs/core';
 import { ApplicationModule } from './app.module';
 import { SwaggerModule, DocumentBuilder } from '@nestjs/swagger';
+import { LoggingInterceptor } from './shared/logging.interceptor';
 
 async function bootstrap() {
   const appOptions = {cors: true};
   const app = await NestFactory.create(ApplicationModule, appOptions);
   app.setGlobalPrefix('api');
 
+  app.setGlobalPrefix('v1/api');
+
   const options = new DocumentBuilder()
-    .setTitle('NestJS Realworld Example App')
-    .setDescription('The Realworld API description')
+    .setTitle('API Controle de Bicicletas')
+    .setDescription('API para gerenciamento de manutenção de bicicletas')
     .setVersion('1.0')
-    .setBasePath('api')
+    .setBasePath('v1/api')
     .addBearerAuth()
     .build();
   const document = SwaggerModule.createDocument(app, options);
   SwaggerModule.setup('/docs', app, document);
 
+  app.useGlobalInterceptors(new LoggingInterceptor());
   await app.listen(3000);
 }
 bootstrap();
