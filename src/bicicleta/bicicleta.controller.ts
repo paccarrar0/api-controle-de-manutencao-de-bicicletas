@@ -11,6 +11,9 @@ import {
   ApiOperation, ApiTags, ApiBody, ApiParam, // <--- Importe o ApiParam
 } from '@nestjs/swagger';
 import { AuthGuard } from '../user/auth.guard';
+import { RolesGuard } from '../user/roles.guard';
+import { Roles } from '../user/roles.decorator';
+import { UserRole } from '../user/user.entity';
 
 @ApiBearerAuth()
 @ApiTags('bicicletas')
@@ -64,7 +67,8 @@ export class BicicletaController {
   @ApiResponse({ status: 201, description: 'The bicicleta has been successfully deleted.'})
   @ApiResponse({ status: 403, description: 'Forbidden.' })
   @Delete(':slug')
-  @UseGuards(AuthGuard)
+  @UseGuards(AuthGuard, RolesGuard)
+  @Roles(UserRole.ADMIN)
   @ApiParam({ name: 'slug', description: 'Slug da bicicleta', type: 'string' }) // <--- Adicionado
   async delete(@Param() params) {
     return this.bicicletaService.delete(params.slug);

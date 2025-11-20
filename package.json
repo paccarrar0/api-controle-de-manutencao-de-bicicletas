@@ -1,7 +1,7 @@
 {
-  "name": "nestjs-realworld-example-app",
-  "version": "2.0.0",
-  "description": "[![Build Status](https://travis-ci.org/anishkny/node-express-realworld-example-app.svg?branch=master)](https://travis-ci.org/anishkny/node-express-realworld-example-app)",
+  "name": "api-controle-de-manutencao-de-bicicletas",
+  "version": "10.0",
+  "description": "api para gerenciamento de manutenção de bicicletas (https://github.com/paccarrar0/api-controle-de-manutencao-de-bicicletas.git)",
   "main": "index.js",
   "scripts": {
     "start": "node index.js",
@@ -10,18 +10,18 @@
     "start:prod": "node dist/main.js",
     "test": "jest --config=jest.json",
     "test:watch": "jest --watch --config=jest.json",
-    "test:coverage": "jest --config=jest.json --coverage --coverageDirectory=coverage"
+    "test:coverage": "jest --config=jest.json --coverage --coverageDirectory=coverage",
+    "typeorm": "ts-node -r tsconfig-paths/register ./node_modules/typeorm/cli.js",
+    "migration:generate": "npm run typeorm -- migration:generate -n",
+    "migration:run": "npm run typeorm -- migration:run",
+    "migration:revert": "npm run typeorm -- migration:revert"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/lujakob/nestjs-realworld-example-app.git"
+    "url": "git+https://github.com/paccarrar0/api-controle-de-manutencao-de-bicicletas.git"
   },
-  "author": "lu.jakob@googlemail.com",
-  "license": "ISC",
-  "bugs": {
-    "url": "https://github.com/lujakob/nestjs-realworld-example-app/issues"
-  },
-  "homepage": "https://github.com/lujakob/nestjs-realworld-example-app#readme",
+  "author": "pedrocarraro@alunos.utfpr.edu.br",
+  "homepage": "https://github.com/paccarrar0/api-controle-de-manutencao-de-bicicletas#readme",
   "dependencies": {
     "@nestjs/common": "^7.0.5",
     "@nestjs/config": "^0.6.3",
@@ -44,6 +44,7 @@
     "rxjs": "^6.5.5",
     "slug": "^1.1.0",
     "swagger-ui-express": "^4.1.6",
+    "tsconfig-paths": "^4.2.0",
     "typeorm": "^0.2.45",
     "typescript": "^3.8.3"
   },
