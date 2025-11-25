@@ -110,12 +110,13 @@ export class UserService {
     let exp = new Date(today);
     exp.setDate(today.getDate() + 60);
 
-    const secret = this.configService.get<string>('SECRET'); 
+    const secret = this.configService.get<string>('SECRET');
 
     return jwt.sign({
       id: user.id,
       username: user.username,
       email: user.email,
+      role: user.role,
       exp: exp.getTime() / 1000,
     }, secret);
   };
