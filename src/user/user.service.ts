@@ -97,7 +97,6 @@ export class UserService {
 
   async findByEmail(email: string): Promise<UserRO>{
     const user = await this.userRepository.findOne({email: email});
-    // CORREÇÃO: Tratamento para usuário não encontrado (evita erro 500)
     if (!user) {
       const errors = {User: ' not found'};
       throw new HttpException({errors}, 404);
