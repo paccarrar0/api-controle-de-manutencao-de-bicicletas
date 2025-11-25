@@ -97,7 +97,6 @@ export class UserService {
 
   async findByEmail(email: string): Promise<UserRO>{
     const user = await this.userRepository.findOne({email: email});
-    // CORREÇÃO: Tratamento para usuário não encontrado (evita erro 500)
     if (!user) {
       const errors = {User: ' not found'};
       throw new HttpException({errors}, 404);
@@ -110,12 +109,13 @@ export class UserService {
     let exp = new Date(today);
     exp.setDate(today.getDate() + 60);
 
-    const secret = this.configService.get<string>('SECRET'); 
+    const secret = this.configService.get<string>('SECRET');
 
     return jwt.sign({
       id: user.id,
       username: user.username,
       email: user.email,
+      role: user.role,
       exp: exp.getTime() / 1000,
     }, secret);
   };

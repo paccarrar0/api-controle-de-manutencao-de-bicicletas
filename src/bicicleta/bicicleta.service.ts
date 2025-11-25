@@ -50,7 +50,6 @@ export class BicicletaService {
         if (ids.length > 0) {
           qb.andWhere("bicicleta.authorId IN (:ids)", { ids });
         } else {
-          // Se o usuário não favoritou nada, retorna lista vazia para essa query
           qb.andWhere("1 = 0");
         }
       }
@@ -74,7 +73,6 @@ export class BicicletaService {
   }
 
   async findOne(where): Promise<BicicletaRO> {
-    // Adicionado relations para trazer o autor ao buscar por slug
     const bicicleta = await this.bicicletaRepository.findOne({ 
       where, 
       relations: ['author'] 
@@ -86,7 +84,6 @@ export class BicicletaService {
     let bicicleta = await this.bicicletaRepository.findOne({slug});
 
     const manutencao = new Manutencao();
-    // CORREÇÃO: Mapeando corretamente os campos do DTO
     manutencao.body = manutencaoData.descricao;
     manutencao.custo = manutencaoData.custo;
 
@@ -117,7 +114,6 @@ export class BicicletaService {
 
   async favorite(id: number, slug: string): Promise<BicicletaRO> {
     let bicicleta = await this.bicicletaRepository.findOne({slug});
-    // CORREÇÃO: Carregando a relação 'favorites'
     const user = await this.userRepository.findOne({
       where: { id },
       relations: ['favorites']
@@ -137,7 +133,6 @@ export class BicicletaService {
 
   async unFavorite(id: number, slug: string): Promise<BicicletaRO> {
     let bicicleta = await this.bicicletaRepository.findOne({slug});
-    // CORREÇÃO: Carregando a relação 'favorites'
     const user = await this.userRepository.findOne({
       where: { id },
       relations: ['favorites']
@@ -167,12 +162,11 @@ export class BicicletaService {
     bicicleta.modelo = bicicletaData.modelo;
     bicicleta.cor = bicicletaData.cor;
     bicicleta.marca = bicicletaData.marca;
-    bicicleta.aro = bicicletaData.aro; // Correção anterior mantida
+    bicicleta.aro = bicicletaData.aro;
     bicicleta.status = bicicletaData.status;
     bicicleta.slug = this.slugify(bicicletaData.modelo);
     bicicleta.manutencoes = [];
 
-    // Otimização: Associar autor diretamente
     const author = await this.userRepository.findOne(userId);
     bicicleta.author = author;
 
