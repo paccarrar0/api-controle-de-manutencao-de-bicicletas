@@ -5,7 +5,7 @@ import { CreateUserDto, UpdateUserDto, LoginUserDto } from './dto';
 import { HttpException } from '@nestjs/common/exceptions/http.exception';
 import { User } from './user.decorator';
 import { ValidationPipe } from '../shared/pipes/validation.pipe';
-import { AuthGuard } from './auth.guard'; // Importação do AuthGuard
+import { AuthGuard } from './auth.guard';
 
 import {
   ApiBearerAuth, ApiTags, ApiBody
@@ -18,20 +18,19 @@ export class UserController {
 
   constructor(private readonly userService: UserService) {}
 
-  // ADICIONADO: Rota para listar todos os usuários (GET /api/users)
   @Get('users')
   async findAll() {
     return await this.userService.findAll();
   }
 
   @Get('user')
-  @UseGuards(AuthGuard) // ADICIONADO: Proteção obrigatória para pegar o usuário do token
+  @UseGuards(AuthGuard)
   async findMe(@User('email') email: string): Promise<UserRO> {
     return await this.userService.findByEmail(email);
   }
 
   @Put('user')
-  @UseGuards(AuthGuard) // É boa prática proteger o update também
+  @UseGuards(AuthGuard)
   @ApiBody({ type: UpdateUserDto })
   async update(@User('id') userId: number, @Body('user') userData: UpdateUserDto) {
     return await this.userService.update(userId, userData);

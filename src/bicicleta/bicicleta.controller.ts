@@ -8,7 +8,7 @@ import { User } from '../user/user.decorator';
 import {
   ApiBearerAuth,
   ApiResponse,
-  ApiOperation, ApiTags, ApiBody, ApiParam, // <--- Importe o ApiParam
+  ApiOperation, ApiTags, ApiBody, ApiParam,
 } from '@nestjs/swagger';
 import { AuthGuard } from '../user/auth.guard';
 import { RolesGuard } from '../user/roles.guard';
@@ -30,13 +30,13 @@ export class BicicletaController {
   }
 
   @Get(':slug')
-  @ApiParam({ name: 'slug', description: 'Slug da bicicleta', type: 'string' }) // <--- Adicionado
+  @ApiParam({ name: 'slug', description: 'Slug da bicicleta', type: 'string' })
   async findOne(@Param('slug') slug): Promise<BicicletaRO> {
     return await this.bicicletaService.findOne({slug});
   }
 
   @Get(':slug/manutencoes')
-  @ApiParam({ name: 'slug', description: 'Slug da bicicleta', type: 'string' }) // <--- Adicionado
+  @ApiParam({ name: 'slug', description: 'Slug da bicicleta', type: 'string' })
   async findManutencoes(@Param('slug') slug): Promise<ManutencoesRO> {
     return await this.bicicletaService.findManutencoes(slug);
   }
@@ -58,7 +58,7 @@ export class BicicletaController {
   @Put(':slug')
   @UseGuards(AuthGuard)
   @ApiBody({ type: CreateBicicletaDto })
-  @ApiParam({ name: 'slug', description: 'Slug da bicicleta', type: 'string' }) // <--- Adicionado
+  @ApiParam({ name: 'slug', description: 'Slug da bicicleta', type: 'string' })
   async update(@Param() params, @Body('bicicleta') bicicletaData: CreateBicicletaDto) {
     return this.bicicletaService.update(params.slug, bicicletaData);
   }
@@ -69,7 +69,7 @@ export class BicicletaController {
   @Delete(':slug')
   @UseGuards(AuthGuard, RolesGuard)
   @Roles(UserRole.ADMIN)
-  @ApiParam({ name: 'slug', description: 'Slug da bicicleta', type: 'string' }) // <--- Adicionado
+  @ApiParam({ name: 'slug', description: 'Slug da bicicleta', type: 'string' })
   async delete(@Param() params) {
     return this.bicicletaService.delete(params.slug);
   }
@@ -80,7 +80,7 @@ export class BicicletaController {
   @Post(':slug/manutencoes')
   @UseGuards(AuthGuard)
   @ApiBody({ type: CreateManutencaoDto })
-  @ApiParam({ name: 'slug', description: 'Slug da bicicleta para adicionar manutenção', type: 'string' }) // <--- Adicionado
+  @ApiParam({ name: 'slug', description: 'Slug da bicicleta para adicionar manutenção', type: 'string' })
   async createManutencao(@Param('slug') slug, @Body('manutencao') manutencaoData: CreateManutencaoDto) {
     return await this.bicicletaService.addManutencao(slug, manutencaoData);
   }
@@ -90,8 +90,8 @@ export class BicicletaController {
   @ApiResponse({ status: 403, description: 'Forbidden.' })
   @Delete(':slug/manutencoes/:id')
   @UseGuards(AuthGuard)
-  @ApiParam({ name: 'slug', type: 'string' }) // <--- Adicionado
-  @ApiParam({ name: 'id', type: 'number' })   // <--- Adicionado
+  @ApiParam({ name: 'slug', type: 'string' })
+  @ApiParam({ name: 'id', type: 'number' })
   async deleteManutencao(@Param() params) {
     const {slug, id} = params;
     return await this.bicicletaService.deleteManutencao(slug, id);
@@ -102,7 +102,7 @@ export class BicicletaController {
   @ApiResponse({ status: 403, description: 'Forbidden.' })
   @Post(':slug/favorite')
   @UseGuards(AuthGuard)
-  @ApiParam({ name: 'slug', description: 'Slug da bicicleta', type: 'string' }) // <--- Adicionado
+  @ApiParam({ name: 'slug', description: 'Slug da bicicleta', type: 'string' })
   async favorite(@User('id') userId: number, @Param('slug') slug) {
     return await this.bicicletaService.favorite(userId, slug);
   }
@@ -112,7 +112,7 @@ export class BicicletaController {
   @ApiResponse({ status: 403, description: 'Forbidden.' })
   @Delete(':slug/favorite')
   @UseGuards(AuthGuard)
-  @ApiParam({ name: 'slug', description: 'Slug da bicicleta', type: 'string' }) // <--- Adicionado
+  @ApiParam({ name: 'slug', description: 'Slug da bicicleta', type: 'string' })
   async unFavorite(@User('id') userId: number, @Param('slug') slug) {
     return await this.bicicletaService.unFavorite(userId, slug);
   }

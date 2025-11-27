@@ -4,7 +4,7 @@ import { BicicletaModule } from './bicicleta/bicicleta.module';
 import { UserModule } from './user/user.module';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { Connection } from 'typeorm';
-import { ConfigModule, ConfigService } from '@nestjs/config'; // Adicione ConfigService
+import { ConfigModule, ConfigService } from '@nestjs/config';
 
 @Module({
   imports: [
