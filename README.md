@@ -38,13 +38,13 @@ Além das funcionalidades principais, a API implementa um sistema de "favoritos"
 * Criar o database:
   * ` mysql -u <usuario> -p <senha> `
   * ` create database bicicletas_db `
-* Criar e rodas a migração do banco de dados:
-  * ` npm run migration:generate `
-  * ` npm run migration:run `
 * Rodar a compilação dos arquivos:
   * ` npm run prestart:prod `
+* Criar e rodar a migração do banco de dados:
+  * ` npm run migration:generate `
+  * ` npm run migration:run `
+* Rodar a aplicação:
   * ` npm run start:prod `
-
 ---
 
 ## **Pré-requisitos**
